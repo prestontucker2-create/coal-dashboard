@@ -1,0 +1,21 @@
+CREATE INDEX IF NOT EXISTS idx_coal_prices_benchmark_ts ON coal_prices(benchmark, timestamp);
+CREATE INDEX IF NOT EXISTS idx_gas_prices_benchmark_ts ON gas_prices(benchmark, timestamp);
+CREATE INDEX IF NOT EXISTS idx_price_spreads_name_ts ON price_spreads(spread_name, timestamp);
+CREATE INDEX IF NOT EXISTS idx_us_coal_prod_region_date ON us_coal_production(region, period_date);
+CREATE INDEX IF NOT EXISTS idx_coal_inv_location_date ON coal_inventories(location, period_date);
+CREATE INDEX IF NOT EXISTS idx_intl_supply_country_date ON international_supply(country, metric, period_date);
+CREATE INDEX IF NOT EXISTS idx_power_gen_region_fuel ON power_generation(region, fuel_type, period_date);
+CREATE INDEX IF NOT EXISTS idx_steel_prod_region_date ON steel_production(region, period_date);
+CREATE INDEX IF NOT EXISTS idx_trade_flows_exp_imp ON trade_flows(exporter, importer, period_date);
+CREATE INDEX IF NOT EXISTS idx_macro_ind_ts ON macro_indicators(indicator, timestamp);
+CREATE INDEX IF NOT EXISTS idx_cot_contract_date ON cot_positions(contract, report_date);
+CREATE INDEX IF NOT EXISTS idx_stock_prices_ticker_date ON stock_prices(ticker, date);
+CREATE INDEX IF NOT EXISTS idx_company_fin_ticker ON company_financials(ticker, metric, period);
+CREATE INDEX IF NOT EXISTS idx_insider_tx_ticker ON insider_transactions(ticker, transaction_date);
+CREATE INDEX IF NOT EXISTS idx_inst_own_ticker ON institutional_ownership(ticker, filing_date);
+CREATE INDEX IF NOT EXISTS idx_short_interest_ticker ON short_interest(ticker, settlement_date);
+CREATE INDEX IF NOT EXISTS idx_news_published ON news_headlines(published_at);
+CREATE INDEX IF NOT EXISTS idx_reddit_posted ON reddit_mentions(posted_at);
+CREATE INDEX IF NOT EXISTS idx_signal_board_name ON signal_board(signal_name);
+CREATE INDEX IF NOT EXISTS idx_alert_history_time ON alert_history(triggered_at);
+CREATE INDEX IF NOT EXISTS idx_data_freshness_source ON data_freshness(source_name)

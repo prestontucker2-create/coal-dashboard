@@ -1,0 +1,94 @@
+# Copy this file to config.yaml and fill in your API keys
+# Most data sources work with free API keys
+
+api_keys:
+  eia: "your-eia-api-key"           # Free: https://www.eia.gov/opendata/register.php
+  fred: "your-fred-api-key"         # Free: https://fred.stlouisfed.org/docs/api/api_key.html
+  oilprice: "your-oilprice-key"     # Free: https://www.oilpriceapi.com/
+  newsapi: "your-newsapi-key"       # Free: https://newsapi.org/register
+  reddit_client_id: ""              # Free: https://www.reddit.com/prefs/apps
+  reddit_client_secret: ""
+  reddit_user_agent: "coal-dashboard/1.0"
+  entsoe: ""                        # Free: email transparency@entsoe.eu
+  telegram_bot_token: ""            # Create via @BotFather on Telegram
+  telegram_chat_id: ""              # Your chat ID for alert delivery
+
+watchlist:
+  - ticker: "BTU"
+    name: "Peabody Energy"
+    exchange: "NYSE"
+    type: "thermal"
+    primary: true
+  - ticker: "WHC.AX"
+    name: "Whitehaven Coal"
+    exchange: "ASX"
+    type: "thermal_met"
+    primary: true
+  - ticker: "CEIX"
+    name: "CONSOL Energy"
+    exchange: "NYSE"
+    type: "thermal"
+    primary: false
+  - ticker: "CNXR"
+    name: "Arch Resources"
+    exchange: "NYSE"
+    type: "met"
+    primary: false
+  - ticker: "HCC"
+    name: "Warrior Met Coal"
+    exchange: "NYSE"
+    type: "met"
+    primary: false
+  - ticker: "AMR"
+    name: "Alpha Metallurgical"
+    exchange: "NYSE"
+    type: "met"
+    primary: false
+  - ticker: "ARLP"
+    name: "Alliance Resource Partners"
+    exchange: "NASDAQ"
+    type: "thermal"
+    primary: false
+  - ticker: "TGA.L"
+    name: "Thungela Resources"
+    exchange: "LSE"
+    type: "thermal"
+    primary: false
+  - ticker: "YAL.AX"
+    name: "Yancoal Australia"
+    exchange: "ASX"
+    type: "thermal_met"
+    primary: false
+
+refresh_intervals:
+  stock_prices_intraday: 300        # 5 min during market hours
+  stock_prices_daily: 86400         # Once daily
+  coal_benchmarks: 720              # 12 min (OilPriceAPI cycle)
+  eia_weekly: 86400                 # Daily check for weekly release
+  fred_macro: 3600                  # Hourly
+  news_sentiment: 1800              # 30 min
+  sec_filings: 86400                # Daily
+  weather: 21600                    # 6 hours
+  entsoe: 3600                      # Hourly
+  cftc_cot: 86400                   # Daily (releases weekly)
+  company_financials: 86400         # Daily
+
+alerts:
+  enabled: true
+  cooldown_minutes: 60
+  channels:
+    telegram: true
+    email: false
+  email:
+    smtp_host: ""
+    smtp_port: 587
+    sender: ""
+    recipient: ""
+
+database:
+  path: "./data/coal_dashboard.db"
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  frontend_url: "http://localhost:5173"

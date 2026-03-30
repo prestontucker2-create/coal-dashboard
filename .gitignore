@@ -1,0 +1,36 @@
+# Data
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*.egg
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Config with secrets (keep config.example.yaml checked in)
+config.yaml
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Env
+.env
