@@ -20,9 +20,12 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install build dependencies
+# Install build dependencies for C extensions (lxml, numpy, pandas)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
+    g++ \
+    libxml2-dev \
+    libxslt1-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
