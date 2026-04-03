@@ -65,7 +65,8 @@ class CompanyFetcher(BaseFetcher):
 
         try:
             url = YF_CHART_URL.format(ticker=ticker)
-            resp = await self.fetch_with_retry(url, params=params)
+            http_resp = await self.fetch_with_retry(url, params=params)
+            resp = http_resp.json()
 
             if not resp or "chart" not in resp:
                 logger.warning(f"No chart data for {ticker}")
