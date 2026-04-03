@@ -20,18 +20,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install OS-level build dependencies for C extensions
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    g++ \
-    libxml2-dev \
-    libxslt1-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install heavy scientific packages first (separate layer = better caching)
-RUN pip install --no-cache-dir numpy "pandas>=2.1,<3" lxml "beautifulsoup4>=4.12,<5"
-
-# Install the rest of the dependencies
+# Install Python dependencies (all have pre-built wheels, no gcc needed)
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 

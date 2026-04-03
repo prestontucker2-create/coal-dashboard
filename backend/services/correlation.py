@@ -1,9 +1,27 @@
 import logging
+import math
 from datetime import datetime, timedelta
 from sqlalchemy import text
-import numpy as np
 
 logger = logging.getLogger(__name__)
+
+
+def _pearson(x: list[float], y: list[float]) -> float:
+    """Pure-Python Pearson correlation coefficient (no numpy needed)."""
+    n = len(x)
+    if n == 0:
+        return 0.0
+    mean_x = sum(x) / n
+    mean_y = sum(y) / n
+    dx = [xi - mean_x for xi in x]
+    dy = [yi - mean_y for yi in y]
+    num = sum(a * b for a, b in zip(dx, dy))
+    den_x = math.sqrt(sum(a * a for a in dx))
+    den_y = math.sqrt(sum(b * b for b in dy))
+    if den_x == 0 or den_y == 0:
+        return 0.0
+    return round(num / (den_x * den_y), 4)
+
 
 # Series definitions: (label, table, value_col, date_col, filter_clause)
 SERIES_DEFS = [
@@ -82,13 +100,6 @@ class CorrelationService:
                     matrix[i][j] = 0.0
                     continue
 
-                x_arr = np.array(x, dtype=float)
-                y_arr = np.array(y, dtype=float)
-
-                if np.std(x_arr) == 0 or np.std(y_arr) == 0:
-                    matrix[i][j] = 0.0
-                else:
-                    corr = np.corrcoef(x_arr, y_arr)[0, 1]
-                    matrix[i][j] = round(float(corr), 4)
+                matrix[i][j] = _pearson(x, y)
 
         return {"labels": labels, "matrix": matrix}
